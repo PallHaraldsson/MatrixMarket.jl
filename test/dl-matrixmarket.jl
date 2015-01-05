@@ -6,7 +6,7 @@
 using GZip
 function gunzip(fname)
     endswith(fname, ".gz") || error("gunzip: $fname: unknown suffix -- ignored")
-    destname = split(fname, ".gz")[1] #XXX potential bug, assumes that ".gz" doesn't happen in the middle of a filename
+    destname = fname[1:end-length(".gz")]
     open(destname, "w") do f
         GZip.open(fname) do g
             write(f, readall(g))
